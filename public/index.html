@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mi muro</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>Mi muro</h1>
+    <div class="acciones">
+      <button id="btnAsc" class="sec">A → Z</button>
+      <button id="btnDesc" class="sec">Z → A</button>
+      <button id="btnGuardar">Guardar</button>
+    </div>
+  </header>
+
+  <form id="formNota">
+    <input type="text" id="titulo" placeholder="Título" maxlength="100" required>
+    <textarea id="contenido" rows="3" placeholder="Información..."></textarea>
+    <button type="submit">Publicar</button>
+  </form>
+
+  <p id="mensaje"></p>
+
+  <main id="muro"></main>
+
+  <script src="app.js"></script>
+</body>
+</html>
