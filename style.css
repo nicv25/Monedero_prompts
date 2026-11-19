@@ -70,6 +70,10 @@ button.sec { background: #e3e7ee; color: var(--texto); }
 }
 #formNota button { align-self: flex-end; }
 
+/* Aviso del modo local (solo aparece mientras Supabase no está configurado) */
+#aviso { text-align: center; color: #8a5a00; font-size: .85rem; margin: 0; }
+#aviso:empty { display: none; }
+
 #mensaje { text-align: center; color: var(--suave); min-height: 1.2em; }
 
 /* Muro en columnas */

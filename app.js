@@ -1,11 +1,17 @@
 // Arreglo donde viven las notas mientras la página está abierta.
 // La fuente de la verdad es la base de datos (Supabase): cada cambio se guarda allá.
 // Cada nota es: { id, titulo, contenido, orden }
+//
+// MODO LOCAL TEMPORAL: si supabase.js todavía tiene los valores de ejemplo
+// (SUPABASE_CONFIGURADO es false), las notas se guardan solo en este navegador
+// para que la página funcione sin errores. En cuanto se configure Supabase,
+// el modo local se apaga solo y todo va a la base de datos.
 let notas = [];
 
 const form = document.getElementById("formNota");
 const muro = document.getElementById("muro");
 const mensaje = document.getElementById("mensaje");
+const aviso = document.getElementById("aviso");
 
 // Muestra un texto debajo del formulario
 function avisar(texto) {
@@ -20,10 +26,33 @@ function crearBoton(texto, accion) {
   return b;
 }
 
+// ---------- MODO LOCAL TEMPORAL (se usa solo si Supabase no está configurado) ----------
+const CLAVE_LOCAL = "monedero_prompts_notas";
+
+function leerLocal() {
+  try {
+    return JSON.parse(localStorage.getItem(CLAVE_LOCAL)) || [];
+  } catch {
+    return [];
+  }
+}
+
+function guardarLocal() {
+  notas.forEach((nota, i) => { nota.orden = i; });
+  localStorage.setItem(CLAVE_LOCAL, JSON.stringify(notas));
+}
+
 // ---------- BASE DE DATOS ----------
 
 // Leer todas las notas, en el orden guardado
 async function cargar() {
+  if (!SUPABASE_CONFIGURADO) {
+    aviso.textContent = "Modo local: las notas se guardan solo en este navegador (falta configurar Supabase).";
+    notas = leerLocal();
+    pintar();
+    return;
+  }
+
   const { data, error } = await clienteSupabase
     .from(TABLA)
     .select("id, titulo, contenido, orden")
@@ -40,6 +69,12 @@ async function cargar() {
 
 // Guardar una nota nueva
 async function crearNota(titulo, contenido) {
+  if (!SUPABASE_CONFIGURADO) {
+    notas.push({ id: Date.now(), titulo, contenido, orden: notas.length });
+    guardarLocal();
+    return true;
+  }
+
   const { data, error } = await clienteSupabase
     .from(TABLA)
     .insert({ titulo, contenido, orden: notas.length })
@@ -56,6 +91,13 @@ async function crearNota(titulo, contenido) {
 
 // Borrar una nota
 async function borrarNota(indice) {
+  if (!SUPABASE_CONFIGURADO) {
+    notas.splice(indice, 1);
+    guardarLocal();
+    pintar();
+    return;
+  }
+
   const { error } = await clienteSupabase
     .from(TABLA)
     .delete()
@@ -71,6 +113,11 @@ async function borrarNota(indice) {
 
 // Guardar el orden actual: cada nota recibe como "orden" su posición en el arreglo
 async function guardarOrden() {
+  if (!SUPABASE_CONFIGURADO) {
+    guardarLocal();
+    return;
+  }
+
   notas.forEach((nota, i) => { nota.orden = i; });
 
   const { error } = await clienteSupabase

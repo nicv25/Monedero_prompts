@@ -39,6 +39,13 @@ create policy "borrar prompts"  on public.prompts for delete to anon using (true
    y pegarlas en `supabase.js` (`SUPABASE_URL` y `SUPABASE_ANON_KEY`).
    La llave `anon` es pública por diseño; la `service_role` **nunca** va en el código.
 
+## Modo local temporal
+
+Mientras `supabase.js` conserve los textos de ejemplo (`TU-PROYECTO` y `TU-LLAVE-ANON-PUBLICA`), la página
+no se conecta a ninguna base de datos y guarda las notas solo en el navegador. Así se puede publicar en GitHub Pages
+sin errores aunque Supabase todavía no esté configurado. Se ve un aviso amarillo que lo indica.
+En cuanto se pegan los valores reales, el modo local se apaga solo y todo se guarda en Supabase.
+
 ## Publicación
 
 GitHub Pages: **Settings → Pages → Deploy from a branch → `main` / `(root)`**.
