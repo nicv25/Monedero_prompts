@@ -11,7 +11,6 @@ let notas = [];
 const form = document.getElementById("formNota");
 const muro = document.getElementById("muro");
 const mensaje = document.getElementById("mensaje");
-const aviso = document.getElementById("aviso");
 
 // Muestra un texto debajo del formulario
 function avisar(texto) {
@@ -47,7 +46,6 @@ function guardarLocal() {
 // Leer todas las notas, en el orden guardado
 async function cargar() {
   if (!SUPABASE_CONFIGURADO) {
-    aviso.textContent = "Modo local: las notas se guardan solo en este navegador (falta configurar Supabase).";
     notas = leerLocal();
     pintar();
     return;
