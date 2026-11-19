@@ -12,7 +12,6 @@
     <div class="acciones">
       <button id="btnAsc" class="sec">A → Z</button>
       <button id="btnDesc" class="sec">Z → A</button>
-      <button id="btnGuardar">Guardar</button>
     </div>
   </header>
 
@@ -26,6 +25,12 @@
 
   <main id="muro"></main>
 
+  <!-- Librería de Supabase (versión fija, con verificación de integridad) -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.119.2/dist/umd/supabase.js"
+    integrity="sha384-A97u3Qnt9GZHURO9YJZRe7VQgGUeFzcv6I1oIGnUTxQrCxnpQMwR0/G8F2zt9abZ"
+    crossorigin="anonymous"></script>
+  <!-- Conexión con la base de datos (debe ir antes que app.js) -->
+  <script src="supabase.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
