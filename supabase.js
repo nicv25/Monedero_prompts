@@ -11,8 +11,8 @@
 // NUNCA pegues aquí la llave "service_role": esa sí es secreta.
 // =========================================================
 
-const SUPABASE_URL = "https://TU-PROYECTO.supabase.co";
-const SUPABASE_ANON_KEY = "TU-LLAVE-ANON-PUBLICA";
+const SUPABASE_URL = "https://thfnisobajvuzmilgvqs.supabase.co";
+const SUPABASE_ANON_KEY = "sb_publishable__lVMlWDQowxs9YQTa346Lg_BGCjBaUu";
 
 // ¿Ya pegaste tus valores reales? Mientras sigan los textos de ejemplo,
 // la página NO intenta conectarse (así no da errores) y usa el modo local de app.js.
